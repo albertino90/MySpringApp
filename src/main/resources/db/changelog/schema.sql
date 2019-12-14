@@ -1,0 +1,1 @@
+CREATE SCHEMA `albert_schema` DEFAULT CHARACTER SET utf8 ;
