@@ -1,6 +1,5 @@
 package com.springtest.dto;
 
-import com.springtest.model.Role;
 import lombok.*;
 
 import java.util.Set;
