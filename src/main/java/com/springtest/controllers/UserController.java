@@ -21,11 +21,13 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
-//    @PathVariable - Аннотация, которая показывает, что параметр метода должен быть связан с переменной из урл-адреса.
+
+    //    @PathVariable - Аннотация, которая показывает, что параметр метода должен быть связан с переменной из урл-адреса.
     @GetMapping("/users/{id}")
-    public UserDTO sayHello(@PathVariable Long id){
+    public UserDTO sayHello(@PathVariable Long id) {
         User user = userService.getUser(id);
         return userMapper.toDTO(user);
+
     }
 
 

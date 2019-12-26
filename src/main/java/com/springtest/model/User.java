@@ -29,12 +29,12 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     public void addRole(Role role) {
-        roles.add( role );
-        role.getUsers().add( this );
+        roles.add(role);
+        role.getUsers().add(this);
     }
 
     public void removeRole(Role role) {
-        roles.remove( role );
-        role.getUsers().remove( this );
+        roles.remove(role);
+        role.getUsers().remove(this);
     }
 }

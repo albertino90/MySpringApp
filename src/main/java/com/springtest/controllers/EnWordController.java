@@ -17,12 +17,11 @@ public class EnWordController {
     private final EnWordMapper enWordMapper;
 
     @GetMapping("/en-words/{id}")
-    public EnWordDTO sayHello(@PathVariable Long id){
+    public EnWordDTO sayHello(@PathVariable Long id) {
         EnWord enWord = enWordService.getEnWord(id);
         return enWordMapper.toDTO(enWord);
 
     }
-
 
 
 }
