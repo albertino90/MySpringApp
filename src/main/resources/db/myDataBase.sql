@@ -67,4 +67,14 @@ CREATE TABLE `albert_schema`.`cards` (
                                                  REFERENCES `albert_schema`.`ru_words` (`id`)
                                                  ON DELETE NO ACTION
                                                  ON UPDATE NO ACTION);
+# таблица для картинок
+CREATE TABLE `albert_schema`.`images` (
+                                          `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+                                          `name` VARCHAR(45) NOT NULL,
+                                          `original_filename` VARCHAR(45) NOT NULL,
+                                          `content_type` VARCHAR(45) NOT NULL,
+                                          `size` BIGINT(20) NOT NULL,
+                                          `bytes` LONGBLOB NOT NULL,
+                                          PRIMARY KEY (`id`));
+
 
