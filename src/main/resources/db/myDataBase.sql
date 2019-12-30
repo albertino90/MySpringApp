@@ -76,5 +76,15 @@ CREATE TABLE `albert_schema`.`images` (
                                           `size` BIGINT(20) NOT NULL,
                                           `bytes` LONGBLOB NOT NULL,
                                           PRIMARY KEY (`id`));
-
+# добавление картинки к таблице с карточкой
+ALTER TABLE `albert_schema`.`cards`
+    ADD COLUMN `image_id` BIGINT(20) NULL AFTER `rating`,
+    ADD INDEX `fk_images_idx` (`image_id` ASC) VISIBLE;
+;
+ALTER TABLE `albert_schema`.`cards`
+    ADD CONSTRAINT `fk_images`
+        FOREIGN KEY (`image_id`)
+            REFERENCES `albert_schema`.`images` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION;
 

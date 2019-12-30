@@ -19,19 +19,20 @@ public class CardController {
     private final CardMapper cardMapper;
 
     @GetMapping("/cards/{id}")
-    public CardDTO getCard(@PathVariable Long id) throws IOException {
+    public ResponseEntity getCard(@PathVariable Long id) throws IOException {
         Card card = cardService.getCard(id);
-        return cardMapper.toDTO(card);
+        CardDTO cardDTO = cardMapper.toDTO(card);
+        return new ResponseEntity(cardDTO,HttpStatus.OK);
     }
 
-//    @PostMapping("/cards")
-//    public ResponseEntity<?> saveCard(@RequestBody CardDTO cardDTO)throws IOException{
-//
-//        Card card = cardMapper.toEntity(cardDTO);
-//        card = cardService.addCard(card);
-//        cardDTO = cardMapper.toDTO(card);
-//        return new ResponseEntity<>(cardDTO, HttpStatus.CREATED);
-//    }
+    @PostMapping("/cards")
+    public ResponseEntity<?> saveCard(@RequestBody CardDTO cardDTO)throws IOException{
+
+        Card card = cardMapper.toEntity(cardDTO);
+        card = cardService.addCard(card);
+        cardDTO = cardMapper.toDTO(card);
+        return new ResponseEntity<>(cardDTO, HttpStatus.CREATED);
+    }
 
 
 }

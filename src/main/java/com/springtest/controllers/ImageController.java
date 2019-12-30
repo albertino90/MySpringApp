@@ -5,11 +5,14 @@ import com.springtest.mappers.ImageMapper;
 import com.springtest.model.Image;
 import com.springtest.services.ImageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 
@@ -28,8 +31,12 @@ public class ImageController {
     @GetMapping("/images/{id}")
     public ResponseEntity<?> getImage(@PathVariable Long id) throws IOException{
         Image image = imageService.getImage(id);
-        ImageDTO imageDTO = imageMapper.toDTO(image);
-        return new ResponseEntity<>(imageDTO, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .header("filename",image.getOriginalFilename())
+                .contentType(MediaType.valueOf(image.getContentType()))
+                .contentLength(image.getSize())
+                .body(image.getBytes());
+//                .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
     }
 
     //    @PathVariable - Аннотация, которая показывает, что параметр метода должен быть связан с переменной из урл-адреса.
@@ -38,8 +45,12 @@ public class ImageController {
 
         Image image = imageMapper.toEntity(file);
         image = imageService.saveImage(image);
-        ImageDTO imageDTO = imageMapper.toDTO(image);
-        return new ResponseEntity<>(imageDTO, HttpStatus.CREATED);
+//        ImageDTO imageDTO = imageMapper.toDTO(image);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("fileName",image.getOriginalFilename())
+                .contentType(MediaType.valueOf(image.getContentType()))
+                .contentLength(image.getSize())
+                .body(new InputStreamResource(new ByteArrayInputStream(image.getBytes())));
 
     }
 

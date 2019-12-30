@@ -15,4 +15,9 @@ public class CardServiceImpl implements CardService {
     public Card getCard(Long id) {
         return cardRepository.getById(id);
     }
+
+    @Override
+    public Card addCard(Card card) {
+        return cardRepository.save(card);
+    }
 }
