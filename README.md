@@ -1,2 +1,2 @@
 # MySpringApp
-пет проект на spring boot
+Пет проект на spring boot. В процессе...
