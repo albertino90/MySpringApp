@@ -23,7 +23,7 @@ public class WelcomeController {
         model.addAttribute("message", message);
         model.addAttribute("tasks", tasks);
 
-        return "welcome.html"; //view
+        return "welcome"; //view
     }
 
     // /hello?name=kotlin

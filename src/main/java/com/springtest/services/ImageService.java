@@ -6,5 +6,6 @@ public interface ImageService {
 
     Image getImage(Long id);
 
+    //    <S extends T> S save(S var1);
     Image saveImage(Image image);
 }
