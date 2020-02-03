@@ -1,6 +1,5 @@
 package com.springtest.controllers;
 
-import com.springtest.dto.UserDTO;
 import com.springtest.mappers.UserMapper;
 import com.springtest.model.User;
 import com.springtest.services.UserService;
@@ -26,35 +25,47 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/signup")
-    public String showSignUpForm(User user) {
-        return "add-user";
-    }
-
     @GetMapping("/all")
     public String getAllUsers(Model model){
         model.addAttribute("users", userService.findAll());
         return "usersList";
     }
-
     //    @PathVariable - Аннотация, которая показывает, что параметр метода должен быть связан с переменной из урл-адреса.
     @GetMapping("/users/{id}")
     public String getById(@PathVariable Long id, Model model) {
-//        User user = userService.getUser(id);
         model.addAttribute("user",userService.getUser(id));
         return "showUser";
     }
+    @GetMapping("/adduser")
+    public String createUserPage() {
+        return "createUser";
+    }
+
+    @PostMapping("/adduser")
+    public String addUser(@ModelAttribute("user") User user) throws Exception {
+        userService.addUser(user);
+        return "redirect:/all";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id ){
+        userService.delete(id);
+        return "redirect:/all";
+    }
+    @GetMapping("/update/{id}")
+    public String updateUser(@PathVariable Long id, Model model){
+        model.addAttribute("user", userService.getUser(id));
+        return "updateUser";
+    }
+    @PostMapping("/update")
+    public String update(@ModelAttribute("user") User user){
+        userService.update(user);
+        return "redirect:/user/"+user.getId();
+    }
+
+
+
 }
 
-//    @PostMapping("/adduser")
-//    public String addUser(@Valid User user, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "add-user";
-//        }
-//
-//        userService.
-//        model.addAttribute("users", userRepository.findAll());
-//        return "index";
-//    }
 
 

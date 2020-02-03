@@ -21,8 +21,14 @@
         </td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
+        <td><a th:href="@{'/delete/' + ${user.id}}"th:text="Delete"></a></td>
+        <td><a th:href="@{'/update/' + ${user.id}}"th:text="Update"></a></td>
+
     </tr>
 </table>
+
+<br>
+<a href="/adduser">New user</a>
 
 </body>
 </html>
