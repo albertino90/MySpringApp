@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 //@ResponseBody - Аннотация показывает что данный метод может возвращать кастомный объект в виде xml, json...
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -25,13 +26,19 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("login")
+    public String logform(){
+        return "login";
+    }
+
+
     @GetMapping("/all")
     public String getAllUsers(Model model){
         model.addAttribute("users", userService.findAll());
         return "usersList";
     }
     //    @PathVariable - Аннотация, которая показывает, что параметр метода должен быть связан с переменной из урл-адреса.
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public String getById(@PathVariable Long id, Model model) {
         model.addAttribute("user",userService.getUser(id));
         return "showUser";
@@ -44,13 +51,13 @@ public class UserController {
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute("user") User user) throws Exception {
         userService.addUser(user);
-        return "redirect:/all";
+        return "redirect:/users/all";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id ){
         userService.delete(id);
-        return "redirect:/all";
+        return "redirect:/users/all";
     }
     @GetMapping("/update/{id}")
     public String updateUser(@PathVariable Long id, Model model){
@@ -60,7 +67,7 @@ public class UserController {
     @PostMapping("/update")
     public String update(@ModelAttribute("user") User user){
         userService.update(user);
-        return "redirect:/user/"+user.getId();
+        return "redirect:/users/"+user.getId();
     }
 
 

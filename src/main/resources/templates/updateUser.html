@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Create user page</title>
 </head>
 <body>
 
-<form name="user" action="/update" method="post">
+<form name="user" action="/users/update" method="post">
     <p>Name</p>
-    <input title="Name" type="text" name="name">
+    <input title="Name" type="text" name="name" th:value="${user.name}">
     <p>Email</p>
-    <input title="Email" type="text" name="email">
-    <p>Password</p>
-    <input title="Password" type="text" name="password">
+    <input title="Email" type="text" name="email" th:value ="${user.email}" >
+    <p>Age</p>
+    <input title="Age" type="text" name="password" th:value = "${user.age}">
     <input type="submit" value="OK">
 </form>
 
