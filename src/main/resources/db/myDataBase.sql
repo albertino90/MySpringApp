@@ -13,6 +13,36 @@ CREATE TABLE `albert_schema`.`roles` (
                                          `name` VARCHAR(45) NOT NULL,
                                          PRIMARY KEY (`id`),
                                          UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE);
+# account
+CREATE TABLE `albert_schema`.`accounts` (
+                                            `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+                                            `amount` DOUBLE NOT NULL DEFAULT 0,
+                                            PRIMARY KEY (`id`),
+                                            UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+                                            CONSTRAINT `accounts_id_fk`
+                                                FOREIGN KEY (`id`)
+                                                    REFERENCES `albert_schema`.`users` (`id`)
+                                                    ON DELETE NO ACTION
+                                                    ON UPDATE NO ACTION)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
+
+#currencies
+CREATE TABLE `albert_schema`.`currencies` (
+                                              `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+                                              `currency_name` VARCHAR(45) NOT NULL,
+                                              PRIMARY KEY (`id`),
+                                              UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+                                              UNIQUE INDEX `currency_name_UNIQUE` (`currency_name` ASC) VISIBLE,
+                                              CONSTRAINT `currencies_id_fk`
+                                                  FOREIGN KEY (`id`)
+                                                      REFERENCES `albert_schema`.`accounts` (`id`)
+                                                      ON DELETE NO ACTION
+                                                      ON UPDATE NO ACTION)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8;
+
+
 # промежуточная таблица
 CREATE TABLE `albert_schema`.`users_roles` (
                                                `user_id` BIGINT(20) NOT NULL,

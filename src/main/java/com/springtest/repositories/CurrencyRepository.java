@@ -1,5 +1,7 @@
 package com.springtest.repositories;
 
+import com.springtest.model.Account;
+import com.springtest.model.Currency;
 import com.springtest.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,11 +10,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface CurrencyRepository extends JpaRepository<Currency, Long> {
 
-    User getById(Long id);
-
-    @Query("select b from User b where b.name = :name")
-    User getByName(@Param("name") String name);
-
+        Currency getById(Long id);
 }

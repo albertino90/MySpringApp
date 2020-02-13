@@ -20,6 +20,7 @@ public class User {
     private String name;
     private String email;
     private int age;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "users_roles",
@@ -28,13 +29,17 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public void addRole(Role role) {
-        roles.add(role);
-        role.getUsers().add(this);
-    }
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="id")
+    private Set<Account> accounts = new HashSet<>();
 
-    public void removeRole(Role role) {
-        roles.remove(role);
-        role.getUsers().remove(this);
-    }
+//    public void addRole(Role role) {
+////        roles.add(role);
+////        role.getUsers().add(this);
+////    }
+////
+////    public void removeRole(Role role) {
+////        roles.remove(role);
+////        role.getUsers().remove(this);
+////    }
 }

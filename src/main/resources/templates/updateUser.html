@@ -8,6 +8,7 @@
 
 <form name="user" action="/users/update" method="post">
     <p>Name</p>
+    <input type="hidden" th:field="${user.id}" />
     <input title="Name" type="text" name="name" th:value="${user.name}">
     <p>Email</p>
     <input title="Email" type="text" name="email" th:value ="${user.email}" >

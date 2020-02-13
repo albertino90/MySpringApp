@@ -2,6 +2,7 @@ package com.springtest.controllers;
 
 import com.springtest.mappers.UserMapper;
 import com.springtest.model.User;
+import com.springtest.services.AccountService;
 import com.springtest.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final AccountService accountService;
     private final UserMapper userMapper;
 
     @GetMapping("/")
@@ -41,6 +43,7 @@ public class UserController {
     @GetMapping("/{id}")
     public String getById(@PathVariable Long id, Model model) {
         model.addAttribute("user",userService.getUser(id));
+        model.addAttribute("account",accountService.getAccount(id));
         return "showUser";
     }
     @GetMapping("/adduser")
@@ -67,7 +70,7 @@ public class UserController {
     @PostMapping("/update")
     public String update(@ModelAttribute("user") User user){
         userService.update(user);
-        return "redirect:/users/"+user.getId();
+        return "redirect:/users/all";
     }
 
 
